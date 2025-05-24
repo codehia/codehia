@@ -1,16 +1,28 @@
-## Hi there 👋
+# Hi there, I'm Soumyaranjan Acharya (codehia)! 👋
 
-<!--
-**codehia/codehia** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
+I'm a passionate **Software Developer** who loves building, tinkering, and learning. Whether it's Python, Go, or exploring the latest tech, I enjoy turning ideas into reality through code.
 
-Here are some ideas to get you started:
+## 🚀 About Me
 
-- 🔭 I’m currently working on ...
-- 🌱 I’m currently learning ...
-- 👯 I’m looking to collaborate on ...
-- 🤔 I’m looking for help with ...
-- 💬 Ask me about ...
-- 📫 How to reach me: ...
-- 😄 Pronouns: ...
-- ⚡ Fun fact: ...
--->
+- 💻 Currently leveling up with new technologies
+- 🐍 Python and 🐹 Go are my favorites
+- ☕️ Coffee & 🍺 beer enthusiast
+- 🖥️ Vim motions, Tiling Window Managers, and Linux power user
+
+## 🛠️ Featured Projects
+
+- [Portfolio](https://sacharya.dev/) – My personal site and showcase
+- [Dotfiles](#) – My Linux setup, Vim configs, and more
+- [New Projects](#) – Always building something exciting!
+
+## 🌐 Connect with Me
+
+- [LinkedIn](https://www.linkedin.com/in/soumyaranjana/)  
+- [Personal Website](https://sacharya.dev/)
+
+---
+
+> “Code, coffee, and curiosity—repeat.”
+
+```
+Thanks for visiting my profile! 🚀

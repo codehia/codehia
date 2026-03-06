@@ -1,0 +1,27 @@
+[
+  {
+    "id": 1,
+    "icon": {
+      "type": "lucide",
+      "name": "circle-user-round"
+    },
+    "text": "Soumyaranjan Acharya"
+  },
+  {
+    "id": 2,
+    "icon": {
+      "type": "lucide",
+      "name": "mail"
+    },
+    "text": "dev@sacharya.dev"
+  },
+  {
+    "id": 3,
+    "icon": {
+      "type": "lucide",
+      "name": "map-pinned"
+    },
+    "type": "lucide",
+    "text": "Web Developer from India"
+  }
+]

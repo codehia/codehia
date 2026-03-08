@@ -23,6 +23,7 @@ const quickInfo = defineCollection({
 		id: z.number(),
 		icon: z.union([lucideIconSchema, simpleIconSchema]),
 		text: z.string(),
+		link: z.string().optional(),
 	}),
 });
 
@@ -43,7 +44,7 @@ const workExperience = defineCollection({
 		title: z.string(),
 		company: z.string(),
 		duration: z.string(),
-		description: z.string(),
+		description: z.array(z.string()),
 	}),
 });
 

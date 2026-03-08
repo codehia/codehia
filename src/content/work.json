@@ -1,9 +1,53 @@
 [
   {
     "id": 1,
-    "duration": "2021 - present",
+    "duration": "Jan 2017 - Feb 2018",
+    "company": "iQuanti",
+    "title": "Product Support Engineer",
+    "description": [
+      "Built a Django app that pulled keyword rankings from a third-party API and saved results to S3 and Snowflake, cutting ad-hoc report turnaround by over 50%."
+    ]
+  },
+  {
+    "id": 2,
+    "duration": "Mar 2018 - Apr 2019",
+    "company": "Manch",
+    "title": "Python Developer",
+    "description": [
+      "Built and maintained a Scrapy/Selenium crawler that translated and saved 10,000+ pages per day into MongoDB."
+    ]
+  },
+  {
+    "id": 3,
+    "duration": "Jun 2019 - Dec 2019",
+    "company": "Masai School",
+    "title": "Technical Mentor",
+    "description": [
+      "Mentored students across frontend fundamentals and practical projects over an 8-month coding bootcamp."
+    ]
+  },
+  {
+    "id": 4,
+    "duration": "Feb 2020 - Jan 2021",
+    "company": "Radicali",
+    "title": "Software Engineer",
+    "description": [
+      "Replaced the existing search framework with Elasticsearch, cutting response times by 50%+.",
+      "Built a Scrapy/SQS/S3 data pipeline crawling 50,000+ links daily.",
+      "Improved backend test coverage by 30%+."
+    ]
+  },
+  {
+    "id": 5,
+    "duration": "Jan 2021 - Present",
     "company": "Flockjay",
-    "title": "Senior Software Engineer",
-    "description": "Primarily Backend development, but also some Frontend work. I work on a variety of projects, including building new features, improving existing ones, and fixing bugs. I also collaborate with other teams to ensure that our products are of high quality and meet the needs of our customers."
+    "title": "Senior Backend Developer",
+    "description": [
+      "Sole backend engineer through the company's pivot from a sales bootcamp to a B2B SaaS platform; now senior on a 7-person team with 15+ enterprise clients including Redis.",
+      "Brought average response times and query counts down ~70% through targeted query optimization.",
+      "Built a rule engine that converts customer-defined conditions to Django ORM queries at runtime to trigger enrollment and access changes.",
+      "Set up SSO and SCIM provisioning with Okta and Microsoft Entra, handling cross-org identity across multiple client orgs.",
+      "Built the full content system from scratch and integrated Salesforce, Clari, and Gong to bring real-world sales data into the platform."
+    ]
   }
 ]

@@ -13,15 +13,23 @@
       "type": "lucide",
       "name": "mail"
     },
-    "text": "dev@sacharya.dev"
+    "text": "dev@sacharya.dev",
+    "link": "mailto:dev@sacharya.dev"
   },
   {
     "id": 3,
     "icon": {
       "type": "lucide",
+      "name": "briefcase"
+    },
+    "text": "Senior Backend Developer"
+  },
+  {
+    "id": 4,
+    "icon": {
+      "type": "lucide",
       "name": "map-pinned"
     },
-    "type": "lucide",
-    "text": "Web Developer from India"
+    "text": "Bengaluru, India"
   }
 ]

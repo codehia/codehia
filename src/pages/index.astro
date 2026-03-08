@@ -34,7 +34,10 @@ const { Content: About } = await render(about!);
 				{quickInfo.map((info) => (
 					<li>
 						<Icon type={info.data.icon.type} name={info.data.icon.name as any} width={24} height={24} class='glow-icon' />
-						<span>{info.data.text}</span>
+						{info.data.link
+							? <a href={info.data.link} class="socials-link"><span>{info.data.text}</span></a>
+							: <span>{info.data.text}</span>
+						}
 					</li>
 				))}
 			</ul>
@@ -57,7 +60,7 @@ const { Content: About } = await render(about!);
 		<Card>
 			<div class="header-container">
 				<Icon type='lucide' name="user" width={24} height={24} class='glow-icon' />
-				<h2>About me</h2>
+				<h2>About Me</h2>
 			</div>
 			<div class="prose">
 				<About />
@@ -108,7 +111,9 @@ const { Content: About } = await render(about!);
 						<span class="work-experience-duration">{entry.data.duration}</span>
 						<h3 class="work-experience-company">{entry.data.company}</h3>
 						<span class="work-experience-role">{entry.data.title}</span>
-						<p class="work-experience-desc">{entry.data.description}</p>
+						<ul class="work-experience-desc">
+						{entry.data.description.map((item) => <li>{item}</li>)}
+					</ul>
 					</div>
 				))}
 			</div>

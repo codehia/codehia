@@ -86,6 +86,33 @@
 	margin-bottom: 0.75rem;
 }
 
+.work-experience-desc {
+	display: flex;
+	flex-direction: column;
+	gap: 0.4rem;
+	margin: 0;
+	padding: 0;
+}
+
+.work-experience-desc li {
+	list-style: none;
+	padding-left: 1rem;
+	position: relative;
+	font-size: 0.9rem;
+	color: #c7c7c7;
+	line-height: 1.5;
+}
+
+.work-experience-desc li::before {
+	content: "●";
+	position: absolute;
+	left: 0;
+	top: 0.35rem;
+	font-size: 0.5rem;
+	color: var(--primary);
+	text-shadow: 0 0 6px var(--primary);
+}
+
 .socials-link {
 	color: white;
 	display: flex;

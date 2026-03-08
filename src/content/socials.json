@@ -16,5 +16,14 @@
 		},
 		"text": "LinkedIn",
 		"link":"https://www.linkedin.com/in/soumyaracharya/"
+	},
+	{
+		"id": 3,
+		"icon": {
+			"type": "lucide",
+			"name": "file-down"
+		},
+		"text": "Resume",
+		"link": "https://github.com/codehia/resume/raw/master/resume.pdf"
 	}
 ]

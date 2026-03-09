@@ -19,7 +19,7 @@ const config = defineConfig({
 			name: 'Soumyaranjan Acharya',
 			openGraph: {
 				home: {
-					title: 'Soumyaranjan',
+					title: 'Soumyaranjan Acharya',
 					description: 'Soumyaranjan Personal Portfolio',
 				},
 				blog: {

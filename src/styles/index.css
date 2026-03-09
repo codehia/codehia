@@ -92,6 +92,7 @@
 	gap: 0.4rem;
 	margin: 0;
 	padding: 0;
+	margin-top:0.5rem;
 }
 
 .work-experience-desc li {
@@ -107,8 +108,8 @@
 	content: "●";
 	position: absolute;
 	left: 0;
-	top: 0.35rem;
-	font-size: 0.5rem;
+	top: 0.21em;
+	font-size: 0.7rem;
 	color: var(--primary);
 	text-shadow: 0 0 6px var(--primary);
 }

@@ -104,11 +104,8 @@
 	line-height: 1.5;
 }
 
-.work-experience-desc li::before {
+.work-experience-desc li::marker {
 	content: "●";
-	position: absolute;
-	left: 0;
-	top: 0.21em;
 	font-size: 0.7rem;
 	color: var(--primary);
 	text-shadow: 0 0 6px var(--primary);

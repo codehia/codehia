@@ -66,6 +66,8 @@ const posts = defineCollection({
 			tags: z.array(reference('tags')),
 			draft: z.boolean().optional().default(false),
 			image: image(),
+			series: z.string().optional(),
+			seriesPart: z.number().optional(),
 		}),
 });
 

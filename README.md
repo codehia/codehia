@@ -33,8 +33,8 @@ Together, at this pace, I think we're making the worst of both.
 
 <div align="center">
 
-![GitHub Stats](https://github-readme-stats.vercel.app/api?username=codehia&show_icons=true&hide_border=true&include_all_commits=true&count_private=true)
-![Top Languages](https://github-readme-stats.vercel.app/api/top-langs/?username=codehia&layout=compact&hide_border=true)
+![GitHub Stats](./profile/stats.svg)
+![Top Languages](./profile/top-langs.svg)
 
 </div>
 

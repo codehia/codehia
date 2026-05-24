@@ -1,0 +1,39 @@
+---
+title: "Go Internals Part 1: The Scheduler"
+description: "How Go's goroutine scheduler works under the hood — M, P, and G explained."
+image: "../assets/spectre.png"
+createdAt: January 10, 2025
+draft: false
+tags:
+  - go
+  - backend
+series: "Go Internals"
+seriesPart: 1
+---
+
+Go's runtime scheduler is a cooperative, preemptive M:N scheduler. It multiplexes goroutines (G) onto OS threads (M) using logical processors (P).
+
+## The GMP Model
+
+- **G** — goroutine, the unit of work
+- **M** — OS thread, runs the actual code
+- **P** — processor, holds a run queue of goroutines
+
+Each P has a local run queue. M must hold a P to execute goroutines. If a P's local queue is empty, it steals from other Ps.
+
+```go
+// Spawning a goroutine — trivial from user side
+go func() {
+    fmt.Println("running on some M, somewhere")
+}()
+```
+
+## Work Stealing
+
+When an M's P runs dry, it picks a random other P and steals half its run queue. This keeps all cores busy without a central lock on the queue.
+
+## Preemption
+
+Before Go 1.14, goroutines were preempted only at function call sites. Since 1.14, the runtime uses signals (SIGURG) to preempt goroutines at arbitrary points — no more tight loops blocking other goroutines.
+
+Next up: how the runtime handles blocking syscalls.

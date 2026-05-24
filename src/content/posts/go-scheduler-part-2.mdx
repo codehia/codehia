@@ -1,0 +1,37 @@
+---
+title: "Go Internals Part 2: Blocking Syscalls and the Network Poller"
+description: "What happens when a goroutine blocks on I/O — and why Go doesn't stall the whole thread."
+image: "../assets/spectre.png"
+createdAt: January 17, 2025
+draft: false
+tags:
+  - go
+  - backend
+series: "Go Internals"
+seriesPart: 2
+---
+
+When a goroutine makes a blocking syscall, the runtime can't let that stall the M — that would waste a thread and starve the P's run queue.
+
+## Handoff
+
+Before entering a blocking syscall, the runtime detaches the P from the current M and hands it off to another M (or spawns a new one). The original M blocks in the kernel, but the P keeps scheduling other goroutines.
+
+When the syscall returns, the original M tries to re-acquire a P. If none are free, the goroutine is put back on the global run queue and the M parks itself.
+
+## The Network Poller
+
+Network I/O is different. Go uses a non-blocking I/O model backed by epoll (Linux), kqueue (macOS), or IOCP (Windows). When a goroutine reads from a net.Conn and no data is ready:
+
+1. Goroutine is parked and registered with the netpoller
+2. M is freed to run other goroutines
+3. When data arrives, the netpoller wakes the goroutine and puts it back on a P's run queue
+
+```go
+// From user code this is invisible — looks like blocking I/O
+conn.Read(buf) // goroutine parks here if no data, no thread wasted
+```
+
+This is why Go can handle tens of thousands of concurrent connections with a small thread pool.
+
+Next: memory allocation and the GC.

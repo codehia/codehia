@@ -1,0 +1,35 @@
+---
+title: "Go Internals Part 3: Memory Allocation"
+description: "How Go allocates memory — TCMalloc-inspired size classes, mcache, mcentral, and the heap."
+image: "../assets/spectre.png"
+createdAt: January 24, 2025
+draft: true
+tags:
+  - go
+  - backend
+series: "Go Internals"
+seriesPart: 3
+---
+
+This post is still a work in progress.
+
+## Size Classes
+
+Go's allocator divides objects into ~70 size classes. Small allocations (≤32KB) go through a per-P cache (mcache) with no locking. Larger ones go directly to the heap.
+
+## mcache → mcentral → heap
+
+1. **mcache** — per-P, no lock needed
+2. **mcentral** — shared, has a lock, refills mcache
+3. **mheap** — global heap, manages spans of pages
+
+```go
+// stack-allocated — no heap involvement
+x := 42
+
+// escapes to heap — compiler escape analysis decides
+p := &x
+_ = p
+```
+
+More to come.

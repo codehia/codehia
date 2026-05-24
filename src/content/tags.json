@@ -1,5 +1,6 @@
 [
-	{
-		"id": "guide"
-	}
+	{ "id": "guide" },
+	{ "id": "go" },
+	{ "id": "backend" },
+	{ "id": "observability" }
 ]

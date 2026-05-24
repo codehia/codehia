@@ -1,0 +1,56 @@
+---
+title: "Structured Logging in Go with slog"
+description: "Why structured logging matters and how to use Go 1.21's built-in slog package."
+image: "../assets/spectre.png"
+createdAt: February 5, 2025
+draft: false
+tags:
+  - go
+  - observability
+---
+
+Go 1.21 shipped `log/slog` — structured, leveled logging in the standard library. No more reaching for zerolog or zap for basic use cases.
+
+## Why Structured Logging
+
+Plain text logs are for humans. Structured logs (JSON or key-value) are for machines — log aggregators, alerting pipelines, and dashboards can query them without regex.
+
+## Basic Usage
+
+```go
+import "log/slog"
+
+slog.Info("request handled",
+    "method", "GET",
+    "path", "/api/users",
+    "status", 200,
+    "latency_ms", 12,
+)
+```
+
+Output (JSON handler):
+
+```json
+{"time":"2025-02-05T10:00:00Z","level":"INFO","msg":"request handled","method":"GET","path":"/api/users","status":200,"latency_ms":12}
+```
+
+## JSON Handler
+
+```go
+logger := slog.New(slog.NewJSONHandler(os.Stdout, &slog.HandlerOptions{
+    Level: slog.LevelInfo,
+}))
+slog.SetDefault(logger)
+```
+
+## Adding Context
+
+Use `With` to attach fields that apply to all subsequent logs — useful for request IDs:
+
+```go
+reqLogger := logger.With("request_id", requestID)
+reqLogger.Info("starting request")
+reqLogger.Info("request done", "status", 200)
+```
+
+Both lines will carry `request_id` automatically.

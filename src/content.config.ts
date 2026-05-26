@@ -80,6 +80,7 @@ const projects = defineCollection({
 			date: z.coerce.date(),
 			image: image(),
 			link: z.string().url().optional(),
+			draft: z.boolean().optional().default(false),
 			info: z.array(
 				z.object({
 					text: z.string(),

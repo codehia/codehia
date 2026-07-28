@@ -49,7 +49,9 @@ Rollback if broken: re-add GitHub `A` records `185.199.108-111.153`, restore `CN
 - [x] Copy `public/` (fonts) into the app.
 - [x] `apps/blog/src/site-urls.ts` + Navbar env-aware URLs; pin dev port 4322.
 - [x] `pnpm --filter @codehia/blog build` succeeds (index + non-draft post; drafts excluded).
-- [ ] `pnpm --filter @codehia/blog dev` — click through nav + a post locally.
+- [x] `pnpm --filter @codehia/blog dev` — click through nav + a post locally.
+
+Phase 1 rebuilt ground-up on branch `staging` (2026-07-28). Nav: Projects link REMOVED until projects app exists (no dead links on live blog). Lint: biome via devenv (`pkgs.biome`), npm `@biomejs/biome` removed — its dynamic binary can't run on NixOS.
 
 ---
 

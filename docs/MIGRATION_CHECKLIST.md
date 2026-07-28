@@ -37,6 +37,8 @@ Rollback if broken: re-add GitHub `A` records `185.199.108-111.153`, restore `CN
 
 ---
 
+> **⚠ Frozen code:** root `src/pages/blog.astro` + `src/pages/blog/[post].astro` are now COPIED into `apps/blog`. All future blog edits go in `apps/blog` — root copies are dead code walking, deleted in Phase 7 with the rest of root `src/`.
+
 ## Phase 1 — Monorepo scaffold + blog app
 
 - [x] `pnpm-workspace.yaml`: add `apps/*`, `packages/*`.

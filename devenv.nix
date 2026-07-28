@@ -1,7 +1,7 @@
-{ ... }:
+{ pkgs, ... }:
 
 {
-  treefmt.config.programs.biome.enable = true;
+  packages = [ pkgs.biome ];
   languages = {
     javascript = {
       enable = true;

@@ -102,15 +102,15 @@ export const optionsSchema = z.object({
 		/**
 		 * Open Graph meta tags for the home page.
 		 */
-		home: openGraphOptionsSchema,
+		home: openGraphOptionsSchema.optional(),
 		/**
 		 * Open Graph meta tags for the blog page.
 		 */
-		blog: openGraphOptionsSchema,
+		blog: openGraphOptionsSchema.optional(),
 		/**
 		 * Open Graph meta tags for the projects page.
 		 */
-		projects: openGraphOptionsSchema,
+		projects: openGraphOptionsSchema.optional(),
 	}),
 	/**
 	 * All of this information can be find on [giscus' config page](https://giscus.app) under "Enable giscus" after entering all information.

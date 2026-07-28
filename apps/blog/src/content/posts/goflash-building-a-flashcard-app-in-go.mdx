@@ -1,0 +1,37 @@
+---
+title: "I Built a Flashcard App in Go (And Learned Go, AI Prompting, and Spaced Repetition Along the Way)"
+description: "How a CAP Theorem discussion led me to build a TUI flashcard app in Go with AI grading and spaced repetition."
+image: "../assets/goflash.png"
+createdAt: May 26, 2025
+draft: false
+tags:
+  - go
+  - backend
+---
+
+The other day, I was discussing CAP Theorem with a friend of mine as part of a co-interview-prep planning. During this discussion, I realized that I'm just terrible at remembering stuff. So I went looking for a solution, and to my surprise there was a time tested way to memorize concepts called Flash Cards.
+
+Now the issue with flashcards and the solutions I found in the online wildlands is that the cards have to be created by you (I'm too lazy to do that). Then came the spaced repetition aspect, where I found the SM-2 algorithm, but how am I to grade myself (More about the SM-2 in a later blog)?
+
+In came AI. I could specify the correct answer, give my answer, and let an LLM grade me. With the problem statement firmly established, a plan was forged.
+
+## The Plan
+
+1. **Learn a new language:** Why did I choose this? In hindsight this project would've been so much easier if I had stuck to python, but then again easy is never fun. I've been looking at learning Golang for a while now, so I thought let's drop in the deepend and see if I can swim to a shore.
+2. **Implement a TUI (I like them TUIs a lot):** Given an option between GUI and terminal, I like terminal, almost always and exclusively always, so TUI was a simple choice.
+3. **Do the AI:** I hadn't worked on AI prompts before, turns out when you're interacting with LLMs, prompts you must, hence prompt engineering you shall. It was like reading the mind of a 5 year old, and correcting it till it does the thing you wanted, and I have to admit, it was humbling.
+
+## The Outcome
+
+Out came [goflash](https://github.com/codehia/goflash/tree/master) — a flashcard application which helps with spaced repetition. I deliberately kept it open ended so that I can use the same app to learn other topics later (I'm planning history next, don't ask why).
+
+This is a TUI app written in Golang which uses AI to grade and SM-2 algorithm for spaced repetition and doesn't ask you to self-grade and helps you focus on the learning flow instead.
+
+## The Learnings
+
+1. "GoLang is easy" is a myth, especially if you're coming from a Python background.
+2. Go's Channels are genuinely a headscratcher, and I'm still not super confident about it.
+3. Go's packages are an absolute treat and overkill in simpler implementations at the same time. I love the opinionated approach it takes, because it definitely helped me with the project structure.
+4. Prompts are hard and require a lot of manual verification, and prompts need to be verified with different data sizes and types before you start writing code based on their output. Learnt that the hard way.
+
+With the V0 complete, I'll be working on a few more Vs to make the project easier to extend. The next few blogs will build on the V0 of this project, hope I got you hooked enough to want to read the next one.

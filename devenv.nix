@@ -1,11 +1,13 @@
-{ pkgs, ... }:
+{ ... }:
 
 {
+  treefmt.config.programs.biome.enable = true;
   languages = {
-        javascript = {
-            enable = true;
-            pnpm.enable = true;
-        };
+    javascript = {
+      enable = true;
+      pnpm.enable = true;
+    };
+    typescript.enable = true;
   };
-  
+
 }

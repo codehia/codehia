@@ -5,11 +5,14 @@ import expressiveCode from 'astro-expressive-code';
 import spectre from './package/src';
 import { spectreDark } from './src/ec-theme';
 
+import cloudflare from "@astrojs/cloudflare";
+
 // https://astro.build/config
 const config = defineConfig({
-	site: 'https://sacharya.dev',
-	output: 'static',
-	integrations: [
+    site: 'https://sacharya.dev',
+    output: 'static',
+
+    integrations: [
 		expressiveCode({
 			themes: [spectreDark],
 		}),
@@ -34,6 +37,8 @@ const config = defineConfig({
 			giscus: false,
 		}),
 	],
+
+    adapter: cloudflare()
 });
 
 export default config;

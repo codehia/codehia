@@ -87,18 +87,23 @@ const searchOrigins = [siteUrls.blog];
       try {
         window.pagefind = await import("/pagefind/pagefind.js");
         await window.pagefind.init();
-        // Merge each subdomain app's index so this hub search spans all apps.
-        // Each origin must serve its /pagefind/* with CORS (see its _headers).
-        for (const origin of searchOrigins) {
-          try {
-            await window.pagefind.mergeIndex(origin);
-          } catch (mergeError) {
-            console.error('Failed to merge Pagefind index:', origin, mergeError);
-          }
-        }
+        // Own index ready — enable search now so a failing/slow subdomain
+        // merge can never disable the main site's own results.
         pagefindInitialized = true;
       } catch (error) {
         console.error('Failed to initialize Pagefind:', error);
+      }
+
+      // Merge each subdomain app's index so this hub search spans all apps.
+      // Point at the app's /pagefind dir; baseUrl rewrites result links to
+      // that origin. Each origin must serve /pagefind/* with CORS (its _headers).
+      // Failures are isolated — main's own index stays usable.
+      for (const origin of searchOrigins) {
+        try {
+          await window.pagefind.mergeIndex(`${origin}/pagefind`, { baseUrl: origin });
+        } catch (mergeError) {
+          console.error('Failed to merge Pagefind index:', origin, mergeError);
+        }
       }
     }
   });

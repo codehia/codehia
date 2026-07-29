@@ -3,12 +3,10 @@ import { name } from 'spectre:globals';
 import Icon from '@codehia/ui/Icon.astro';
 import { siteUrls } from '../site-urls';
 
-const path = Astro.url.pathname;
-
 // Origins whose Pagefind indexes are merged into the main (hub) search, so one
-// search box surfaces results across all subdomain apps. Add projects/notes here
-// as those apps ship. Env-aware — never hardcode prod URLs.
-const searchOrigins = [siteUrls.blog];
+// search box surfaces results across all subdomain apps. Add notes here
+// as that app ships. Env-aware — never hardcode prod URLs.
+const searchOrigins = [siteUrls.blog, siteUrls.projects];
 ---
 <nav>
   <a class="site-title" href="/">{name}</a>
@@ -18,7 +16,7 @@ const searchOrigins = [siteUrls.blog];
     </li>
     <li class="nav-separator">/</li>
     <li>
-      <a href="/projects" class:list={{ active: path.startsWith('/projects') }}>Projects</a>
+      <a href={siteUrls.projects}>Projects</a>
     </li>
     <li class="nav-separator">/</li>
     <li>

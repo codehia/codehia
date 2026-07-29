@@ -125,8 +125,11 @@ const posts = defineCollection({
 			.superRefine(refinePublished),
 });
 
+// Projects live in the private vault (cloned to ./vault at build). Main reads
+// them only for the home "Latest Projects" feed; cards link out to the projects
+// subdomain (see siteUrls.projects). Filesystem path, not a URL.
 const projects = defineCollection({
-	loader: glob({ base: 'src/content/projects', pattern: '**/*.{md,mdx}' }),
+	loader: glob({ base: fromRoot('vault/projects'), pattern: '**/*.md' }),
 	schema: ({ image }) =>
 		z.object({
 			title: z.string(),

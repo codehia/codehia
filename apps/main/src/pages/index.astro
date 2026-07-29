@@ -25,7 +25,6 @@ const { Content: About } = await render(about!);
 <Layout
 	title={openGraph.home.title || name}
 	description={openGraph.home.description}
-	pagefindIgnore
 >
 	<div class="layout-grid-left" slot="left">
 		<Card class="flex-col-card">
@@ -58,7 +57,7 @@ const { Content: About } = await render(about!);
 		</Card>
 	</div>
 	<div class="layout-grid-right" slot="right">
-		<Card>
+		<Card data-pagefind-body>
 			<div class="header-container">
 				<Icon type='lucide' name="user" width={24} height={24} class='glow-icon' />
 				<h2>About Me</h2>
@@ -91,7 +90,7 @@ const { Content: About } = await render(about!);
 			</div>
 			<div class="content-container">
 				{projects.sort((a, b) => b.data.date.getTime() - a.data.date.getTime()).slice(0, 2).map((project) => (
-					<a href={`/projects/${project.id}`} class="post-container">
+					<a href={`${siteUrls.projects}/${project.id}`} class="post-container">
 						<div class="post-header">
 							<h3>{project.data.title}</h3>
 							<span class="post-date">{project.data.date.toLocaleDateString()}</span>

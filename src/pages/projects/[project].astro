@@ -3,10 +3,10 @@ import '../../styles/article.css';
 
 import type { CollectionEntry } from 'astro:content';
 import { getCollection, render } from 'astro:content';
+import Card from '@codehia/ui/Card.astro';
+import Icon from '@codehia/ui/Icon.astro';
+import ImageGlow from '@codehia/ui/ImageGlow.astro';
 import type { GetStaticPaths } from 'astro';
-import Card from '../../components/Card.astro';
-import Icon from '../../components/Icon.astro';
-import ImageGlow from '../../components/ImageGlow.astro';
 import Layout from '../../layouts/Layout.astro';
 
 interface Props {

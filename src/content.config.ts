@@ -49,14 +49,17 @@ const workExperience = defineCollection({
 });
 
 const tags = defineCollection({
-	loader: file('src/content/tags.json'),
+	// Single-sourced from the blog app: main reads these files at build time only
+	// for the home "Latest Posts" feed. Cards link out to the blog subdomain
+	// (see siteUrls.blog). This is a filesystem path, not a URL.
+	loader: file('apps/blog/src/content/tags.json'),
 	schema: z.object({
 		id: z.string(),
 	}),
 });
 
 const posts = defineCollection({
-	loader: glob({ base: 'src/content/posts', pattern: '**/*.{md,mdx}' }),
+	loader: glob({ base: 'apps/blog/src/content/posts', pattern: '**/*.{md,mdx}' }),
 	schema: ({ image }) =>
 		z.object({
 			title: z.string(),

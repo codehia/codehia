@@ -1,7 +1,25 @@
 import { defineCollection, reference, z } from 'astro:content';
+import { existsSync } from 'node:fs';
+import { dirname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import type { icons as lucideIcons } from '@iconify-json/lucide/icons.json';
 import type { icons as simpleIcons } from '@iconify-json/simple-icons/icons.json';
 import { file, glob } from 'astro/loaders';
+
+// Resolve paths from the workspace root. Content loaders (glob/file) take
+// filesystem paths, not Vite aliases. Rather than count `../` levels (which
+// breaks if this file moves), we walk up to the pnpm-workspace.yaml marker —
+// so the depth of this file no longer matters.
+function findRepoRoot(dir: string): string {
+	while (!existsSync(join(dir, 'pnpm-workspace.yaml'))) {
+		const parent = dirname(dir);
+		if (parent === dir) throw new Error('workspace root (pnpm-workspace.yaml) not found');
+		dir = parent;
+	}
+	return dir;
+}
+const repoRoot = findRepoRoot(dirname(fileURLToPath(import.meta.url)));
+const fromRoot = (path: string) => join(repoRoot, path);
 
 // Fields required only once a post is published (`draft: false`). Pre-draft and
 // draft notes may omit them; publishing an incomplete note fails the build.
@@ -78,7 +96,7 @@ const tags = defineCollection({
 	// Single-sourced from the blog app: main reads these files at build time only
 	// for the home "Latest Posts" feed. Cards link out to the blog subdomain
 	// (see siteUrls.blog). This is a filesystem path, not a URL.
-	loader: file('apps/blog/src/content/tags.json'),
+	loader: file(fromRoot('apps/blog/src/content/tags.json')),
 	schema: z.object({
 		id: z.string(),
 	}),
@@ -90,7 +108,7 @@ const tags = defineCollection({
 // to TRUE, so a note with no frontmatter is silently excluded (no build break).
 // But once `draft: false`, the required set is enforced (see refinePublished).
 const posts = defineCollection({
-	loader: glob({ base: 'vault/blogs', pattern: '**/*.md' }),
+	loader: glob({ base: fromRoot('vault/blogs'), pattern: '**/*.md' }),
 	schema: ({ image }) =>
 		z
 			.object({

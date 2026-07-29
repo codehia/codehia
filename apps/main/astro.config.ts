@@ -1,21 +1,26 @@
 import { fileURLToPath } from 'node:url';
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
+import spectre from '@codehia/spectre';
 import { defineConfig } from 'astro/config';
 import expressiveCode from 'astro-expressive-code';
-import spectre from './package/src';
 import { spectreDark } from './src/ec-theme';
+
+// Private Obsidian vault, cloned to <repo>/vault at build time.
+const vaultDir = fileURLToPath(new URL('../../vault', import.meta.url));
 
 // https://astro.build/config
 const config = defineConfig({
 	site: 'https://sacharya.dev',
 	output: 'static',
-	// Same @assets alias as the blog app: main reads vault posts for the home
-	// "Latest Posts" feed, so it must resolve `image: "@assets/foo.png"` too.
+	// Vite aliases for vault imports (e.g. `image: "@assets/foo.png"` in posts).
+	// NOTE: these work for module/asset imports only — content-loader `base`
+	// paths in content.config.ts do NOT go through Vite aliases.
 	vite: {
 		resolve: {
 			alias: {
-				'@assets': fileURLToPath(new URL('./vault/assets', import.meta.url)),
+				'@vault': vaultDir,
+				'@assets': `${vaultDir}/assets`,
 			},
 		},
 	},

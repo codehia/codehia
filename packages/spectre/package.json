@@ -1,0 +1,12 @@
+{
+	"name": "@codehia/spectre",
+	"type": "module",
+	"version": "1.0.0",
+	"private": true,
+	"exports": {
+		".": "./src/index.ts"
+	},
+	"dependencies": {
+		"astro": "^5.16.6"
+	}
+}

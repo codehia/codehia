@@ -18,7 +18,10 @@ const { project } = Astro.props;
 export const getStaticPaths = (async () => {
 	const projects = await getCollection('projects', (project) => project.data.draft !== true);
 
-	return projects.map((project) => ({ params: { project: project.id }, props: { project } }));
+	return projects.map((project) => ({
+		params: { project: project.id },
+		props: { project },
+	}));
 }) satisfies GetStaticPaths;
 
 console.log(project.data.info);

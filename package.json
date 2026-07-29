@@ -7,6 +7,7 @@
 	"scripts": {
 		"dev": "pnpm --filter @codehia/main dev",
 		"dev:blog": "pnpm --filter @codehia/blog dev",
+		"dev:projects": "pnpm --filter @codehia/projects dev",
 		"build": "pnpm --filter @codehia/main build",
 		"build:all": "pnpm -r build",
 		"preview": "pnpm --filter @codehia/main preview",

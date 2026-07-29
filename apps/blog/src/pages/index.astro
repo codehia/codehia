@@ -3,8 +3,8 @@ import '../styles/article-list.css';
 
 import { getCollection } from 'astro:content';
 import { openGraph } from 'spectre:globals';
-import Card from '../components/Card.astro';
-import Icon from '../components/Icon.astro';
+import Card from '@codehia/ui/Card.astro';
+import Icon from '@codehia/ui/Icon.astro';
 import Layout from '../layouts/Layout.astro';
 
 const posts = await getCollection('posts', (post) => post.data.draft !== true);

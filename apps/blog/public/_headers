@@ -1,0 +1,4 @@
+# Allow the main (hub) site's Pagefind search to fetch this app's index
+# cross-origin via mergeIndex.
+/pagefind/*
+  Access-Control-Allow-Origin: *

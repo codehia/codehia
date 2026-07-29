@@ -4,6 +4,11 @@ import Icon from '@codehia/ui/Icon.astro';
 import { siteUrls } from '../site-urls';
 
 const path = Astro.url.pathname;
+
+// Origins whose Pagefind indexes are merged into the main (hub) search, so one
+// search box surfaces results across all subdomain apps. Add projects/notes here
+// as those apps ship. Env-aware — never hardcode prod URLs.
+const searchOrigins = [siteUrls.blog];
 ---
 <nav>
   <a class="site-title" href="/">{name}</a>
@@ -26,7 +31,7 @@ const path = Astro.url.pathname;
     <Icon type="lucide" name="x" width={24} height={24} class="menu-open" />
   </button>
 </nav>
-<script is:inline>
+<script is:inline define:vars={{ searchOrigins }}>
   const searchElement = document.querySelector('#search');
   const results = document.querySelector('#search-results');
   const navToggle = document.querySelector('.mobile-nav-toggle');
@@ -82,6 +87,15 @@ const path = Astro.url.pathname;
       try {
         window.pagefind = await import("/pagefind/pagefind.js");
         await window.pagefind.init();
+        // Merge each subdomain app's index so this hub search spans all apps.
+        // Each origin must serve its /pagefind/* with CORS (see its _headers).
+        for (const origin of searchOrigins) {
+          try {
+            await window.pagefind.mergeIndex(origin);
+          } catch (mergeError) {
+            console.error('Failed to merge Pagefind index:', origin, mergeError);
+          }
+        }
         pagefindInitialized = true;
       } catch (error) {
         console.error('Failed to initialize Pagefind:', error);

@@ -28,3 +28,4 @@ pnpm-debug.log*
 devenv.lock
 
 CLAUDE*
+vault/

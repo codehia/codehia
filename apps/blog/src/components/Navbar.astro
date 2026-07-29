@@ -2,18 +2,12 @@
 import { name } from 'spectre:globals';
 import Icon from '@codehia/ui/Icon.astro';
 import { siteUrls } from '../site-urls';
-
-const path = Astro.url.pathname;
 ---
 <nav>
-  <a class="site-title" href="/">{name}</a>
+  <a class="site-title" href={siteUrls.main}>{name}</a>
   <ul>
     <li>
-      <a href={siteUrls.blog}>Blog</a>
-    </li>
-    <li class="nav-separator">/</li>
-    <li>
-      <a href="/projects" class:list={{ active: path.startsWith('/projects') }}>Projects</a>
+      <a href="/" class:list={{ active: true }}>Blog</a>
     </li>
     <li class="nav-separator">/</li>
     <li>

@@ -3,11 +3,12 @@ import '../styles/index.css';
 
 import { getCollection, getEntry, render } from 'astro:content';
 import { name, openGraph } from 'spectre:globals';
+import Card from '@codehia/ui/Card.astro';
+import Icon from '@codehia/ui/Icon.astro';
+import ImageGlow from '@codehia/ui/ImageGlow.astro';
 import ProfilePicture from '../assets/pfp.png';
-import Card from '../components/Card.astro';
-import Icon from '../components/Icon.astro';
-import ImageGlow from '../components/ImageGlow.astro';
 import Layout from '../layouts/Layout.astro';
+import { siteUrls } from '../site-urls';
 
 const [posts, projects, about, workExperience, quickInfo, socials] = await Promise.all([
 	getCollection('posts', (post) => post.data.draft !== true),
@@ -28,7 +29,7 @@ const { Content: About } = await render(about!);
 >
 	<div class="layout-grid-left" slot="left">
 		<Card class="flex-col-card">
-			<ImageGlow quality={100} width={120} height={120} src={ProfilePicture} alt="Louis looking out of a window" loading='eager' />
+			<ImageGlow quality={100} width={120} height={120} src={ProfilePicture} alt="Picture Loading" loading='eager' />
 			<h2>{name}</h2>
 			<ul class="overview-list">
 				{quickInfo.map((info) => (
@@ -73,7 +74,7 @@ const { Content: About } = await render(about!);
 			</div>
 			<div class="content-container">
 				{posts.sort((a, b) => b.data.createdAt.getTime() - a.data.createdAt.getTime()).slice(0, 2).map((post) => (
-					<a href={`/blog/${post.id}`} class="post-container">
+					<a href={`${siteUrls.blog}/${post.id}`} class="post-container">
 						<div class="post-header">
 							<h3>{post.data.title}</h3>
 							<span class="post-date">{post.data.createdAt.toLocaleDateString()}</span>

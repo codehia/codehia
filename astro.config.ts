@@ -1,3 +1,4 @@
+import { fileURLToPath } from 'node:url';
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 import { defineConfig } from 'astro/config';
@@ -9,6 +10,15 @@ import { spectreDark } from './src/ec-theme';
 const config = defineConfig({
 	site: 'https://sacharya.dev',
 	output: 'static',
+	// Same @assets alias as the blog app: main reads vault posts for the home
+	// "Latest Posts" feed, so it must resolve `image: "@assets/foo.png"` too.
+	vite: {
+		resolve: {
+			alias: {
+				'@assets': fileURLToPath(new URL('./vault/assets', import.meta.url)),
+			},
+		},
+	},
 	integrations: [
 		expressiveCode({
 			themes: [spectreDark],
@@ -30,8 +40,6 @@ const config = defineConfig({
 					title: "Soumyaranjan's Projects",
 				},
 			},
-			// for comments (Can enable later)
-			giscus: false,
 		}),
 	],
 });

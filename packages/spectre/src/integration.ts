@@ -42,6 +42,10 @@ export const optionsSchema = z.object({
 		 * Open Graph meta tags for the projects page.
 		 */
 		projects: openGraphOptionsSchema.optional(),
+		/**
+		 * Open Graph meta tags for the notes page.
+		 */
+		notes: openGraphOptionsSchema.optional(),
 	}),
 });
 
@@ -59,6 +63,7 @@ export default function integration(options: z.infer<typeof optionsSchema>): Ast
       home: ${JSON.stringify(validatedOptions.openGraph.home)},
       blog: ${JSON.stringify(validatedOptions.openGraph.blog)},
       projects: ${JSON.stringify(validatedOptions.openGraph.projects)},
+      notes: ${JSON.stringify(validatedOptions.openGraph.notes)},
     };
   `
 	);

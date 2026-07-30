@@ -13,6 +13,7 @@ import { siteUrls } from '../site-urls';
 const navLinks = [
 	{ label: 'Blog', href: siteUrls.blog },
 	{ label: 'Projects', href: siteUrls.projects },
+	{ label: 'Notes', href: siteUrls.notes },
 ];
 
 interface Props {
@@ -74,7 +75,7 @@ const { title, description, image, pagefindIgnore, article } = Astro.props;
 	</head>
 	<body>
 		<main data-pagefind-ignore={pagefindIgnore}>
-			<Navbar name={name} siteTitleHref="/" links={navLinks} searchOrigins={[siteUrls.blog, siteUrls.projects]} />
+			<Navbar name={name} siteTitleHref="/" links={navLinks} searchOrigins={[siteUrls.blog, siteUrls.projects, siteUrls.notes]} />
 			<LayoutGrid>
 				<slot name="left" slot="left" />
 				<slot name="right" slot="right" />

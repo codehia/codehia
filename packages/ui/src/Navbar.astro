@@ -1,19 +1,35 @@
 ---
-import { name } from 'spectre:globals';
-import Icon from '@codehia/ui/Icon.astro';
-import { siteUrls } from '../site-urls';
+import Icon from './Icon.astro';
+
+interface NavLink {
+	label: string;
+	href: string;
+	active?: boolean;
+}
+
+interface Props {
+	name: string;
+	siteTitleHref: string;
+	links: NavLink[];
+	// Origins whose Pagefind indexes are merged into this search box, so one
+	// search spans multiple subdomain apps (used by the main hub). Empty on
+	// leaf apps → no merge. Env-aware — never hardcode prod URLs.
+	searchOrigins?: string[];
+}
+
+const { name, siteTitleHref, links, searchOrigins = [] } = Astro.props;
 ---
 <nav>
-  <a class="site-title" href={siteUrls.main}>{name}</a>
+  <a class="site-title" href={siteTitleHref}>{name}</a>
   <ul>
-    <li>
-      <a href={siteUrls.blog}>Blog</a>
-    </li>
-    <li class="nav-separator">/</li>
-    <li>
-      <a href="/" class:list={{ active: true }}>Projects</a>
-    </li>
-    <li class="nav-separator">/</li>
+    {links.map((link) => (
+      <>
+        <li>
+          <a href={link.href} class:list={{ active: link.active }}>{link.label}</a>
+        </li>
+        <li class="nav-separator">/</li>
+      </>
+    ))}
     <li>
       <input id="search" type="text" placeholder="Search (Ctrl+K)" />
       <div id="search-results"></div>
@@ -24,7 +40,7 @@ import { siteUrls } from '../site-urls';
     <Icon type="lucide" name="x" width={24} height={24} class="menu-open" />
   </button>
 </nav>
-<script is:inline>
+<script is:inline define:vars={{ searchOrigins }}>
   const searchElement = document.querySelector('#search');
   const results = document.querySelector('#search-results');
   const navToggle = document.querySelector('.mobile-nav-toggle');
@@ -80,9 +96,23 @@ import { siteUrls } from '../site-urls';
       try {
         window.pagefind = await import("/pagefind/pagefind.js");
         await window.pagefind.init();
+        // Own index ready — enable search now so a failing/slow subdomain
+        // merge can never disable this site's own results.
         pagefindInitialized = true;
       } catch (error) {
         console.error('Failed to initialize Pagefind:', error);
+      }
+
+      // Merge each subdomain app's index so this hub search spans all apps.
+      // Point at the app's /pagefind dir; baseUrl rewrites result links to
+      // that origin. Each origin must serve /pagefind/* with CORS (its _headers).
+      // Failures are isolated — this site's own index stays usable.
+      for (const origin of searchOrigins) {
+        try {
+          await window.pagefind.mergeIndex(`${origin}/pagefind`, { baseUrl: origin });
+        } catch (mergeError) {
+          console.error('Failed to merge Pagefind index:', origin, mergeError);
+        }
       }
     }
   });

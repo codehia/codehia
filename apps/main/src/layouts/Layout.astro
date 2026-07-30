@@ -5,7 +5,15 @@ import '../styles/globals.css';
 import { name, themeColor, twitterHandle } from 'spectre:globals';
 import Background from '@codehia/ui/Background.astro';
 import LayoutGrid from '@codehia/ui/LayoutGrid.astro';
-import Navbar from '../components/Navbar.astro';
+import Navbar from '@codehia/ui/Navbar.astro';
+import { siteUrls } from '../site-urls';
+
+// Main is the hub: cross-links to every app (none active — its own pages sit at
+// root) and merges the subdomain Pagefind indexes into one search.
+const navLinks = [
+	{ label: 'Blog', href: siteUrls.blog },
+	{ label: 'Projects', href: siteUrls.projects },
+];
 
 interface Props {
 	title: string;
@@ -66,7 +74,7 @@ const { title, description, image, pagefindIgnore, article } = Astro.props;
 	</head>
 	<body>
 		<main data-pagefind-ignore={pagefindIgnore}>
-			<Navbar />
+			<Navbar name={name} siteTitleHref="/" links={navLinks} searchOrigins={[siteUrls.blog, siteUrls.projects]} />
 			<LayoutGrid>
 				<slot name="left" slot="left" />
 				<slot name="right" slot="right" />

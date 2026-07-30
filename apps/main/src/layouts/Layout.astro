@@ -1,11 +1,6 @@
 ---
-import '@codehia/ui/styles/reset.css';
-import '@codehia/ui/styles/globals.css';
-
 import { name, themeColor, twitterHandle } from 'spectre:globals';
-import Background from '@codehia/ui/Background.astro';
-import LayoutGrid from '@codehia/ui/LayoutGrid.astro';
-import Navbar from '@codehia/ui/Navbar.astro';
+import Layout from '@codehia/ui/Layout.astro';
 import { siteUrls } from '@codehia/ui/site-urls';
 
 // Main is the hub: cross-links to every app (none active — its own pages sit at
@@ -26,62 +21,18 @@ interface Props {
 		updatedAt?: Date;
 	};
 }
-
-const { title, description, image, pagefindIgnore, article } = Astro.props;
 ---
 
-<!DOCTYPE html>
-<html lang="en">
-	<head>
-		<link rel="preload" href="/fonts/Geist.woff2" as="font" type="font/woff2" crossorigin="">
-		<link rel="preload" href="/fonts/GeistMono.woff2" as="font" type="font/woff2" crossorigin="">
-
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-
-		<title>{title}</title>
-		{description && <meta name="description" content={description} />}
-		<meta name="theme-color" content={themeColor}>
-
-		<link rel="canonical" href={Astro.url} />
-
-		<meta name="og:title" content={title} />
-		{description && <meta name="og:description" content={description} />}
-		<meta name="og:image" content={image?.src || '/img/og.png'} />
-		<meta name="og:url" content={Astro.site} />
-		{!article && <meta name="og:type" content="website" />}
-		<meta name="og:locale" content="en" />
-
-		{article && (
-			<meta name="og:type" content="article" />
-			<meta property="article:published_time" content={article.createdAt.toISOString()} />
-			<meta name="author" content={name} />
-		)}
-
-		{article && article.updatedAt && (
-			<meta property="article:modified_time" content={article.updatedAt.toISOString()} />
-		)}
-
-		<meta name="twitter:card" content="summary_large_image" />
-		{twitterHandle && (
-			<meta name="twitter:site" content={twitterHandle} />
-			<meta name="twitter:creator" content={twitterHandle} />
-		)}
-		<meta name="twitter:title" content={title} />
-		{description && <meta name="twitter:description" content={description} />}
-		<meta name="twitter:image" content={image?.src || '/img/og.png'} />
-	</head>
-	<body>
-		<main data-pagefind-ignore={pagefindIgnore}>
-			<Navbar name={name} siteTitleHref="/" links={navLinks} searchOrigins={[siteUrls.blog, siteUrls.projects, siteUrls.notes]} />
-			<LayoutGrid>
-				<slot name="left" slot="left" />
-				<slot name="right" slot="right" />
-			</LayoutGrid>
-			<slot name="404" />
-		</main>
-		<Background />
-	</body>
-</html>
+<Layout
+	{...Astro.props}
+	name={name}
+	themeColor={themeColor}
+	twitterHandle={twitterHandle}
+	siteTitleHref="/"
+	navLinks={navLinks}
+	searchOrigins={[siteUrls.blog, siteUrls.projects, siteUrls.notes]}
+>
+	<slot name="left" slot="left" />
+	<slot name="right" slot="right" />
+	<slot name="404" slot="404" />
+</Layout>

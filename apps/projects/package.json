@@ -12,6 +12,7 @@
 	"dependencies": {
 		"@astrojs/mdx": "^4.3.13",
 		"@astrojs/sitemap": "^3.6.0",
+		"@codehia/content": "workspace:*",
 		"@codehia/spectre": "workspace:*",
 		"@codehia/ui": "workspace:*",
 		"@iconify-json/lucide": "^1.2.20",

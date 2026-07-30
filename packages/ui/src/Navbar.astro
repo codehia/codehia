@@ -19,7 +19,7 @@ interface Props {
 
 const { name, siteTitleHref, links, searchOrigins = [] } = Astro.props;
 ---
-<nav>
+<nav data-search-origins={JSON.stringify(searchOrigins)}>
   <a class="site-title" href={siteTitleHref}>{name}</a>
   <ul>
     {links.map((link) => (
@@ -40,7 +40,12 @@ const { name, siteTitleHref, links, searchOrigins = [] } = Astro.props;
     <Icon type="lucide" name="x" width={24} height={24} class="menu-open" />
   </button>
 </nav>
-<script is:inline define:vars={{ searchOrigins }}>
+<script>
+  // Bundled (not is:inline) so Astro minifies + hoists it to one cached chunk
+  // instead of inlining ~5KB of mostly-idle search code into every page.
+  // searchOrigins comes from the nav's data attribute (was define:vars, which
+  // would force is:inline).
+  const searchOrigins = JSON.parse(document.querySelector('nav')?.dataset.searchOrigins || '[]');
   const searchElement = document.querySelector('#search');
   const results = document.querySelector('#search-results');
   const navToggle = document.querySelector('.mobile-nav-toggle');
@@ -94,7 +99,11 @@ const { name, siteTitleHref, links, searchOrigins = [] } = Astro.props;
     // initialize pagefind on first focus
     if (!pagefindInitialized) {
       try {
-        window.pagefind = await import("/pagefind/pagefind.js");
+        // Runtime route emitted by pagefind postbuild — not a build-time module.
+        // Held in a var (not a literal) so Rollup won't try to resolve it now
+        // that this script is bundled rather than is:inline.
+        const pagefindModule = "/pagefind/pagefind.js";
+        window.pagefind = await import(/* @vite-ignore */ pagefindModule);
         await window.pagefind.init();
         // Own index ready — enable search now so a failing/slow subdomain
         // merge can never disable this site's own results.

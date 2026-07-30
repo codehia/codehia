@@ -6,9 +6,9 @@ import { name, openGraph } from 'spectre:globals';
 import Card from '@codehia/ui/Card.astro';
 import Icon from '@codehia/ui/Icon.astro';
 import ImageGlow from '@codehia/ui/ImageGlow.astro';
+import { siteUrls } from '@codehia/ui/site-urls';
 import ProfilePicture from '../assets/pfp.png';
 import Layout from '../layouts/Layout.astro';
-import { siteUrls } from '../site-urls';
 
 const [posts, projects, about, workExperience, quickInfo, socials] = await Promise.all([
 	getCollection('posts', (post) => post.data.draft !== true),

@@ -2,9 +2,9 @@ import { fileURLToPath } from 'node:url';
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 import spectre from '@codehia/spectre';
+import { spectreDark } from '@codehia/ui/ec-theme';
 import { defineConfig } from 'astro/config';
 import expressiveCode from 'astro-expressive-code';
-import { spectreDark } from './src/ec-theme';
 
 // Private Obsidian vault, cloned to <repo>/vault at build time.
 const vaultDir = fileURLToPath(new URL('../../vault', import.meta.url));

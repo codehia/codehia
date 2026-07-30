@@ -4,12 +4,19 @@
 	"version": "1.0.0",
 	"private": true,
 	"exports": {
+		"./site-urls": "./src/site-urls.ts",
+		"./ec-theme": "./src/ec-theme.ts",
+		"./scripts/toc": "./src/scripts/toc.ts",
 		"./*": "./src/*"
 	},
 	"dependencies": {
 		"@iconify/utils": "^2.2.1",
 		"@iconify-json/lucide": "^1.2.20",
-		"@iconify-json/simple-icons": "^1.2.18"
+		"@iconify-json/simple-icons": "^1.2.18",
+		"@shikijs/themes": "^1.26.1"
+	},
+	"devDependencies": {
+		"shiki": "^1.26.1"
 	},
 	"peerDependencies": {
 		"astro": "^5.16.6"

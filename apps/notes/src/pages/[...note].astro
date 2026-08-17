@@ -94,7 +94,9 @@ const { Content, headings } = await render(note);
   <article slot="right" data-pagefind-body>
     <Card>
       <div class="article-header" id="_top" data-pagefind-ignore>
-        {note.data.image && <ImageGlow quality={100} class="article-image" src={note.data.image} alt={note.data.title} />}
+        {note.data.image
+          ? <ImageGlow quality={100} class="article-image" src={note.data.image} alt={note.data.title} />
+          : <ImageGlow class="article-image" src={`/og/${note.id}.png`} width={1600} height={900} alt={note.data.title} />}
         <div class="header">
           <div>
             <h1 class="no-mt article-h1">{note.data.title}</h1>

@@ -56,7 +56,9 @@ const { Content } = await render(project);
   <article slot="right" data-pagefind-body>
     <Card>
       <div class="article-header" id="_top" data-pagefind-ignore>
-        {project.data.image && <ImageGlow quality={100} class="article-image" src={project.data.image} alt={project.data.title} />}
+        {project.data.image
+          ? <ImageGlow quality={100} class="article-image" src={project.data.image} alt={project.data.title} />
+          : <ImageGlow class="article-image" src={`/og/${project.id}.png`} width={1600} height={900} alt={project.data.title} />}
         <div class="header">
           <div>
             <h1 class="no-mt article-h1">{project.data.title}</h1>

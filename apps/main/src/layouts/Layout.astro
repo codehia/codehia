@@ -1,5 +1,5 @@
 ---
-import { name, themeColor, twitterHandle } from 'spectre:globals';
+import { name, themeColor } from 'spectre:globals';
 import Layout from '@codehia/ui/Layout.astro';
 import { siteUrls } from '@codehia/ui/site-urls';
 
@@ -27,7 +27,6 @@ interface Props {
 	{...Astro.props}
 	name={name}
 	themeColor={themeColor}
-	twitterHandle={twitterHandle}
 	siteTitleHref="/"
 	navLinks={navLinks}
 	searchOrigins={[siteUrls.blog, siteUrls.projects, siteUrls.notes]}

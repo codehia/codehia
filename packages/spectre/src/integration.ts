@@ -23,10 +23,6 @@ export const optionsSchema = z.object({
 	 */
 	themeColor: z.string().optional(),
 	/**
-	 * The Twitter handle of the site. Used for Twitter meta tags. Optional.
-	 */
-	twitterHandle: z.string().optional(),
-	/**
 	 * Open Graph meta tags for various pages.
 	 */
 	openGraph: z.object({
@@ -58,7 +54,6 @@ export default function integration(options: z.infer<typeof optionsSchema>): Ast
 		`
     export const name = ${JSON.stringify(validatedOptions.name)};
     export const themeColor = ${JSON.stringify(validatedOptions.themeColor ?? '#8c5cf5')};
-    export const twitterHandle = ${JSON.stringify(validatedOptions.twitterHandle)};
     export const openGraph = {
       home: ${JSON.stringify(validatedOptions.openGraph.home)},
       blog: ${JSON.stringify(validatedOptions.openGraph.blog)},

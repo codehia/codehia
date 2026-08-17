@@ -38,10 +38,6 @@ declare module 'spectre:globals' {
 	 */
 	export const themeColor: string;
 	/**
-	 * The Twitter handle of the site.
-	 */
-	export const twitterHandle: string;
-	/**
 	 * Open Graph meta tags for various pages.
 	 */
 	export const openGraph: OpenGraph;

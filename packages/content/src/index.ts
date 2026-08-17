@@ -47,7 +47,9 @@ const refinePublished = (
 	ctx: z.RefinementCtx
 ) => {
 	if (data.draft === false) {
-		for (const field of ['title', 'createdAt', 'description', 'image', 'tags'] as const) {
+		// `image` is NOT required: without one the article falls back to a title
+		// card generated at build (see @codehia/ui/og).
+		for (const field of ['title', 'createdAt', 'description', 'tags'] as const) {
 			if (data[field] === undefined) {
 				ctx.addIssue({
 					code: z.ZodIssueCode.custom,
@@ -86,7 +88,7 @@ export const projectSchema = (image: SchemaContext['image']) =>
 		title: z.string(),
 		description: z.string(),
 		date: z.coerce.date(),
-		image: image(),
+		image: image().optional(),
 		link: z.string().url().optional(),
 		draft: z.boolean().optional().default(false),
 		info: z.array(

@@ -7,15 +7,19 @@
 		"./site-urls": "./src/site-urls.ts",
 		"./ec-theme": "./src/ec-theme.ts",
 		"./scripts/toc": "./src/scripts/toc.ts",
+		"./og": "./src/og.ts",
 		"./*": "./src/*"
 	},
 	"dependencies": {
+		"@codehia/content": "workspace:*",
 		"@iconify/utils": "^2.2.1",
 		"@iconify-json/lucide": "^1.2.20",
 		"@iconify-json/simple-icons": "^1.2.18",
-		"@shikijs/themes": "^1.26.1"
+		"@shikijs/themes": "^1.26.1",
+		"sharp": "^0.33.5"
 	},
 	"devDependencies": {
+		"@types/node": "^24.3.0",
 		"shiki": "^1.26.1"
 	},
 	"peerDependencies": {

@@ -17,6 +17,8 @@ interface Props {
 	title: string;
 	description?: string;
 	image?: ImageMetadata;
+	/** Generated title card (`/og/<slug>.png`), used when there is no `image`. */
+	ogCard?: string;
 	pagefindIgnore?: boolean;
 	article?: {
 		createdAt: Date;
@@ -26,7 +28,6 @@ interface Props {
 	// `spectre:globals` virtual module (same reason Navbar takes `name`).
 	name: string;
 	themeColor: string;
-	twitterHandle?: string;
 	// Nav
 	siteTitleHref: string;
 	navLinks: NavLink[];
@@ -37,15 +38,20 @@ const {
 	title,
 	description,
 	image,
+	ogCard,
 	pagefindIgnore,
 	article,
 	name,
 	themeColor,
-	twitterHandle,
 	siteTitleHref,
 	navLinks,
 	searchOrigins = [],
 } = Astro.props;
+
+// og:image must be an absolute URL — a relative path is not resolvable by most
+// scrapers. Frontmatter image first, then the generated title card, then the
+// site-wide default for pages that are neither (home, about, 404).
+const ogImage = new URL(image?.src ?? ogCard ?? '/img/og-default.png', Astro.site);
 ---
 
 <!DOCTYPE html>
@@ -67,7 +73,7 @@ const {
 
 		<meta name="og:title" content={title} />
 		{description && <meta name="og:description" content={description} />}
-		<meta name="og:image" content={image?.src || '/img/og.png'} />
+		<meta name="og:image" content={ogImage} />
 		<meta name="og:url" content={Astro.site} />
 		{!article && <meta name="og:type" content="website" />}
 		<meta name="og:locale" content="en" />
@@ -82,14 +88,6 @@ const {
 			<meta property="article:modified_time" content={article.updatedAt.toISOString()} />
 		)}
 
-		<meta name="twitter:card" content="summary_large_image" />
-		{twitterHandle && (
-			<meta name="twitter:site" content={twitterHandle} />
-			<meta name="twitter:creator" content={twitterHandle} />
-		)}
-		<meta name="twitter:title" content={title} />
-		{description && <meta name="twitter:description" content={description} />}
-		<meta name="twitter:image" content={image?.src || '/img/og.png'} />
 	</head>
 	<body>
 		<main data-pagefind-ignore={pagefindIgnore}>

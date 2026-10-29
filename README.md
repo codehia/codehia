@@ -5,7 +5,6 @@ What I work on:
 - **Data pipelines**, from ingestion to something useful
 - **CLI tools & automation**: small things that make my own life easier
 
-Python gets ideas off the ground. Go is where they go to live.
 I reach for whatever fits, but I start with what's boring and proven.
 
 **Default approach: get the most out of the simplest solution first.**

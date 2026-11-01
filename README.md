@@ -34,7 +34,6 @@ Together, at this pace, I think we're making the worst of both.
 
 ![GitHub Stats](./profile/stats.svg)
 ![Top Languages](./profile/top-langs.svg)
-
 </div>
 
 ---

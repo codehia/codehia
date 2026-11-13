@@ -5,9 +5,12 @@
 	"private": true,
 	"exports": {
 		"./site-urls": "./src/site-urls.ts",
+		"./types": "./src/types.ts",
 		"./ec-theme": "./src/ec-theme.ts",
 		"./scripts/toc": "./src/scripts/toc.ts",
+		"./scripts/tag-filter": "./src/scripts/tag-filter.ts",
 		"./og": "./src/og.ts",
+		"./article": "./src/article.ts",
 		"./*": "./src/*"
 	},
 	"dependencies": {

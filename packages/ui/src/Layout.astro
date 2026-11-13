@@ -2,28 +2,19 @@
 import './styles/reset.css';
 import './styles/globals.css';
 
+// Shared static assets, bundled by Vite into each app's hashed `/_astro/` output
+// (one copy here instead of one per app's `public/`). `no-inline` keeps the
+// small favicon a real file rather than a data URI repeated in every page.
+import ogDefaultUrl from '../og-background.png?url';
 import Background from './Background.astro';
+import faviconUrl from './favicon.svg?url&no-inline';
+import geistUrl from './fonts/Geist.woff2?url';
+import geistMonoUrl from './fonts/GeistMono.woff2?url';
 import LayoutGrid from './LayoutGrid.astro';
 import Navbar from './Navbar.astro';
+import type { NavLink, PageProps } from './types';
 
-interface NavLink {
-	label: string;
-	href: string;
-	active?: boolean;
-}
-
-interface Props {
-	// Page
-	title: string;
-	description?: string;
-	image?: ImageMetadata;
-	/** Generated title card (`/og/<slug>.png`), used when there is no `image`. */
-	ogCard?: string;
-	pagefindIgnore?: boolean;
-	article?: {
-		createdAt: Date;
-		updatedAt?: Date;
-	};
+interface Props extends PageProps {
 	// Spectre globals — passed as props so this package stays free of the
 	// `spectre:globals` virtual module (same reason Navbar takes `name`).
 	name: string;
@@ -51,18 +42,18 @@ const {
 // og:image must be an absolute URL — a relative path is not resolvable by most
 // scrapers. Frontmatter image first, then the generated title card, then the
 // site-wide default for pages that are neither (home, about, 404).
-const ogImage = new URL(image?.src ?? ogCard ?? '/img/og-default.png', Astro.site);
+const ogImage = new URL(image?.src ?? ogCard ?? ogDefaultUrl, Astro.site);
 ---
 
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<link rel="preload" href="/fonts/Geist.woff2" as="font" type="font/woff2" crossorigin="">
-		<link rel="preload" href="/fonts/GeistMono.woff2" as="font" type="font/woff2" crossorigin="">
+		<link rel="preload" href={geistUrl} as="font" type="font/woff2" crossorigin="">
+		<link rel="preload" href={geistMonoUrl} as="font" type="font/woff2" crossorigin="">
 
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" type="image/svg+xml" href={faviconUrl} />
 		<meta name="generator" content={Astro.generator} />
 
 		<title>{title}</title>
@@ -71,15 +62,15 @@ const ogImage = new URL(image?.src ?? ogCard ?? '/img/og-default.png', Astro.sit
 
 		<link rel="canonical" href={Astro.url} />
 
-		<meta name="og:title" content={title} />
-		{description && <meta name="og:description" content={description} />}
-		<meta name="og:image" content={ogImage} />
-		<meta name="og:url" content={Astro.site} />
-		{!article && <meta name="og:type" content="website" />}
-		<meta name="og:locale" content="en" />
+		<meta property="og:title" content={title} />
+		{description && <meta property="og:description" content={description} />}
+		<meta property="og:image" content={ogImage} />
+		<meta property="og:url" content={Astro.url} />
+		{!article && <meta property="og:type" content="website" />}
+		<meta property="og:locale" content="en" />
 
 		{article && (
-			<meta name="og:type" content="article" />
+			<meta property="og:type" content="article" />
 			<meta property="article:published_time" content={article.createdAt.toISOString()} />
 			<meta name="author" content={name} />
 		)}

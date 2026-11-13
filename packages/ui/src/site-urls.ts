@@ -1,3 +1,5 @@
+import type { NavLink } from './types';
+
 /**
  * Cross-app URLs, environment-aware.
  *
@@ -12,3 +14,18 @@ export const siteUrls = {
 	projects: import.meta.env.PUBLIC_URL_PROJECTS ?? 'http://localhost:4323',
 	notes: import.meta.env.PUBLIC_URL_NOTES ?? 'http://localhost:4324',
 };
+
+/**
+ * The Blog / Projects / Notes nav links. Pass the app being built as `active`:
+ * its link is highlighted and points at `/` (same-app links stay relative).
+ */
+export const navLinks = (active?: 'blog' | 'projects' | 'notes'): NavLink[] =>
+	(
+		[
+			['blog', 'Blog'],
+			['projects', 'Projects'],
+			['notes', 'Notes'],
+		] as const
+	).map(([app, label]) =>
+		app === active ? { label, href: '/', active: true } : { label, href: siteUrls[app] }
+	);

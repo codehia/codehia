@@ -1,0 +1,48 @@
+---
+import './styles/article.css';
+
+import type { Series } from './article';
+import Card from './Card.astro';
+
+interface Props {
+	title?: string;
+	headings: { depth: number; slug: string; text: string }[];
+	series?: Series;
+}
+
+const { title, headings, series } = Astro.props;
+---
+
+<div class="left">
+  <!-- One sticky wrapper for both cards: two separately sticky cards overlap. -->
+  <div class="sidebar-stack">
+    {series && (
+      <Card class="series-card">
+        <h2 class="no-mt">Series: {series.name}</h2>
+        <ol class="series-list">
+          {series.entries.map((entry) => (
+            <li class="series-li" data-current={entry.current ? 'true' : undefined}>
+              {entry.current
+                ? <span class="series-current">{entry.title}</span>
+                : <a href={`/${entry.id}`}>{entry.title}</a>
+              }
+            </li>
+          ))}
+        </ol>
+      </Card>
+    )}
+    <Card class="toc-card">
+      <h2 class="no-mt">Table of contents</h2>
+      <ol>
+        <li class="toc-li">
+          <a href={`#_top`} class="active">{title}</a>
+        </li>
+        {headings.map((heading) => (
+          <li class="toc-li" data-depth={heading.depth}>
+            <a href={`#${heading.slug}`}>{heading.text}</a>
+          </li>
+        ))}
+      </ol>
+    </Card>
+  </div>
+</div>

@@ -13,19 +13,19 @@ interface OpenGraph {
 	/*
 	 * Data for the home page.
 	 */
-	home: OpenGraphInfo;
+	home?: OpenGraphInfo;
 	/**
 	 * Data for the blog page.
 	 */
-	blog: OpenGraphInfo;
+	blog?: OpenGraphInfo;
 	/**
 	 * Data for the projects page.
 	 */
-	projects: OpenGraphInfo;
+	projects?: OpenGraphInfo;
 	/**
 	 * Data for the notes page.
 	 */
-	notes: OpenGraphInfo;
+	notes?: OpenGraphInfo;
 }
 
 declare module 'spectre:globals' {

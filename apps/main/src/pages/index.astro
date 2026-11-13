@@ -23,8 +23,8 @@ const { Content: About } = await render(about!);
 ---
 
 <Layout
-	title={openGraph.home.title || name}
-	description={openGraph.home.description}
+	title={openGraph.home?.title || name}
+	description={openGraph.home?.description}
 >
 	<div class="layout-grid-left" slot="left">
 		<Card class="flex-col-card">
@@ -76,7 +76,7 @@ const { Content: About } = await render(about!);
 					<a href={`${siteUrls.blog}/${post.id}`} class="post-container">
 						<div class="post-header">
 							<h3>{post.data.title}</h3>
-							<span class="post-date">{post.data.createdAt.toLocaleDateString()}</span>
+							<span class="post-date">{post.data.createdAt.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}</span>
 						</div>
 						<span>{post.data.description}</span>
 					</a>
@@ -93,7 +93,7 @@ const { Content: About } = await render(about!);
 					<a href={`${siteUrls.projects}/${project.id}`} class="post-container">
 						<div class="post-header">
 							<h3>{project.data.title}</h3>
-							<span class="post-date">{project.data.date.toLocaleDateString()}</span>
+							<span class="post-date">{project.data.date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}</span>
 						</div>
 						<span>{project.data.description}</span>
 					</a>

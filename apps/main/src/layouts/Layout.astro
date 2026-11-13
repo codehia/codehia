@@ -1,26 +1,13 @@
 ---
 import { name, themeColor } from 'spectre:globals';
 import Layout from '@codehia/ui/Layout.astro';
-import { siteUrls } from '@codehia/ui/site-urls';
+import { navLinks, siteUrls } from '@codehia/ui/site-urls';
+import type { PageProps } from '@codehia/ui/types';
+
+type Props = PageProps;
 
 // Main is the hub: cross-links to every app (none active — its own pages sit at
 // root) and merges the subdomain Pagefind indexes into one search.
-const navLinks = [
-	{ label: 'Blog', href: siteUrls.blog },
-	{ label: 'Projects', href: siteUrls.projects },
-	{ label: 'Notes', href: siteUrls.notes },
-];
-
-interface Props {
-	title: string;
-	description?: string;
-	image?: ImageMetadata;
-	pagefindIgnore?: boolean;
-	article?: {
-		createdAt: Date;
-		updatedAt?: Date;
-	};
-}
 ---
 
 <Layout
@@ -28,7 +15,7 @@ interface Props {
 	name={name}
 	themeColor={themeColor}
 	siteTitleHref="/"
-	navLinks={navLinks}
+	navLinks={navLinks()}
 	searchOrigins={[siteUrls.blog, siteUrls.projects, siteUrls.notes]}
 >
 	<slot name="left" slot="left" />

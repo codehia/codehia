@@ -18,48 +18,12 @@
 	flex-direction: column;
 }
 
-.header-container {
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	gap: 1rem;
-	margin-bottom: 1rem;
-}
-
-.header-container * {
-	margin: 0;
-}
-
 .prose {
 	line-height: 1.6;
 }
 
-.post-container {
-	display: flex;
-	flex-direction: column;
-	gap: 1rem;
-	padding: 1rem;
-	border: 1px solid #353535;
-	color: #ffffff;
-	text-decoration: none;
-	transition:
-		background-color 0.15s ease,
-		border 0.15s ease;
-}
-
-.post-container:hover,
-.post-container:focus-visible {
-	background-color: rgba(140, 92, 245, 0.125);
-	border: 1px solid var(--primary);
-}
-
-.post-container:focus-visible {
-	outline: none;
-}
-
-.post-date,
 .work-experience-duration {
-	color: #c7c7c7;
+	color: var(--text-muted);
 }
 
 .work-experience-container {
@@ -69,10 +33,9 @@
 }
 
 .work-experience-entry:not(:last-of-type) {
-	border-bottom: 1px solid #353535;
+	border-bottom: 1px solid var(--border);
 	padding-bottom: 1rem;
 }
-
 .work-experience-duration {
 	font-size: 0.925rem;
 }
@@ -80,10 +43,6 @@
 .work-experience-company {
 	margin-top: 0.25rem;
 	margin-bottom: 0.5rem;
-}
-
-.work-experience-role {
-	margin-bottom: 0.75rem;
 }
 
 .work-experience-desc {
@@ -100,7 +59,7 @@
 	padding-left: 1rem;
 	position: relative;
 	font-size: 0.9rem;
-	color: #c7c7c7;
+	color: var(--text-muted);
 	line-height: 1.5;
 }
 
@@ -108,7 +67,6 @@
 	content: "●";
 	font-size: 0.7rem;
 	color: var(--primary);
-	text-shadow: 0 0 6px var(--primary);
 }
 
 .socials-link {

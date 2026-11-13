@@ -88,3 +88,7 @@ export async function renderOgCard({
 	// satisfy `BodyInit` in a Response. Build-time only, a handful of images.
 	return new Uint8Array(card);
 }
+
+/** `renderOgCard` as the PNG response an Astro endpoint returns. */
+export const ogResponse = async (card: OgCard) =>
+	new Response(await renderOgCard(card), { headers: { 'Content-Type': 'image/png' } });

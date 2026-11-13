@@ -1,0 +1,12 @@
+---
+import NotFound from '@codehia/ui/NotFound.astro';
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout
+  title={"404"}
+  description={"This page could not be found."}
+	pagefindIgnore
+>
+  <NotFound slot="404" />
+</Layout>

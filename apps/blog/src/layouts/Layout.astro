@@ -1,24 +1,10 @@
 ---
 import { name, themeColor } from 'spectre:globals';
 import Layout from '@codehia/ui/Layout.astro';
-import { siteUrls } from '@codehia/ui/site-urls';
+import { navLinks, siteUrls } from '@codehia/ui/site-urls';
+import type { PageProps } from '@codehia/ui/types';
 
-const navLinks = [
-	{ label: 'Blog', href: '/', active: true },
-	{ label: 'Projects', href: siteUrls.projects },
-	{ label: 'Notes', href: siteUrls.notes },
-];
-
-interface Props {
-	title: string;
-	description?: string;
-	image?: ImageMetadata;
-	pagefindIgnore?: boolean;
-	article?: {
-		createdAt: Date;
-		updatedAt?: Date;
-	};
-}
+type Props = PageProps;
 ---
 
 <Layout
@@ -26,7 +12,7 @@ interface Props {
 	name={name}
 	themeColor={themeColor}
 	siteTitleHref={siteUrls.main}
-	navLinks={navLinks}
+	navLinks={navLinks('blog')}
 >
 	<slot name="left" slot="left" />
 	<slot name="right" slot="right" />

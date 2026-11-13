@@ -1,0 +1,52 @@
+---
+import './styles/article.css';
+
+import Card from './Card.astro';
+import ImageGlow from './ImageGlow.astro';
+
+interface Props {
+	title?: string;
+	/** Frontmatter banner image; without one the generated title card is shown. */
+	image?: ImageMetadata;
+	/** Generated title card (`/og/<slug>.png`). */
+	ogCard: string;
+	date?: Date;
+	/** Minutes; omit to hide the reading-time entry. */
+	readingTime?: number;
+	/** Omit to hide the tags entry. */
+	tags?: string[];
+	/** Completes the "← Back to …" link, e.g. `blog`. */
+	backLabel: string;
+}
+
+const { title, image, ogCard, date, readingTime, tags, backLabel } = Astro.props;
+---
+
+<article data-pagefind-body>
+  <Card>
+    <div class="article-header" id="_top" data-pagefind-ignore>
+      {image
+        ? <ImageGlow quality={100} class="article-image" src={image} alt={title} />
+        : <ImageGlow class="article-image" src={ogCard} width={1600} height={900} alt={title} />}
+      <div class="header">
+        <div>
+          <h1 class="no-mt article-h1">{title}</h1>
+        </div>
+        <div class="article-info">
+          <span>{date?.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}</span>
+          {readingTime !== undefined && (
+            <span>/</span>
+            <span>{readingTime} minute{readingTime === 1 ? "" : "s"} to read</span>
+          )}
+          {tags && (
+            <span>/</span>
+            <span>Tags: {tags.join(", ")}</span>
+          )}
+        </div>
+      </div>
+    </div>
+    <slot />
+    <hr class="end-of-article" />
+    <a href="/" class="block-link" data-pagefind-ignore>← Back to {backLabel}</a>
+  </Card>
+</article>

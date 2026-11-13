@@ -5,6 +5,11 @@
 	/* Used for links */
 	--primary-light: #a277ff;
 	--primary-lightest: #c2a8fd;
+	/* Greys */
+	--border: #353535;
+	--text-muted: #c7c7c7;
+	--surface: #121212;
+	--surface-raised: #252525;
 }
 
 .overview-list {
@@ -94,7 +99,7 @@ main {
 	flex-direction: column;
 	gap: 1rem;
 	padding: 1rem;
-	border: 1px solid #353535;
+	border: 1px solid var(--border);
 	color: #ffffff;
 	text-decoration: none;
 	transition:
@@ -125,7 +130,7 @@ main {
 }
 
 .post-date {
-	color: #c7c7c7;
+	color: var(--text-muted);
 }
 
 .text-glow {
@@ -172,4 +177,16 @@ main {
 	display: flex;
 	flex-direction: column;
 	gap: 1rem;
+}
+
+.header-container {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	gap: 1rem;
+	margin-bottom: 1rem;
+}
+
+.header-container * {
+	margin: 0;
 }

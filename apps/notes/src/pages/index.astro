@@ -47,11 +47,11 @@ const sortedSections = Array.from(sections.entries()).sort(([a], [b]) => a.local
   </div>
   <div class="layout-grid-right" slot="right">
     <Card>
-      <div class="header-container">
+      <div class="header-container" data-pagefind-body>
         <Icon type="lucide" name="notebook-pen" width={24} height={24} class='glow-icon' />
-        <h2>Notes</h2>
+        <h2>Latest Notes</h2>
       </div>
-      <div class="content-container" data-pagefind-body>
+      <div class="content-container">
         {notes.length === 0 && (
           <p>No notes published yet.</p>
         )}
@@ -77,61 +77,15 @@ const sortedSections = Array.from(sections.entries()).sort(([a], [b]) => a.local
     </Card>
   </div>
 </Layout>
-<script>
-  const tags = document.querySelectorAll<HTMLAnchorElement>('.blog-tag');
-  const notes = document.querySelectorAll<HTMLAnchorElement>('.post-container');
-  const url = new URL(window.location.href);
-  const initialTags = url.searchParams.get('tags')?.split(',').filter((tag) => tag.length > 0) || [];
-  const selectedTags = new Set(initialTags);
-
-  function updateNotesVisibility() {
-    notes.forEach((note) => {
-      const noteTags = note.dataset.tags!.split(',');
-      // if there are selected tags and the note does not have all of them, hide the note
-      if (selectedTags.size > 0 && ![...selectedTags].every((tag) => noteTags.includes(tag))) {
-        note.style.display = 'none';
-      } else {
-        note.style.display = '';
-      }
-    });
-  }
-
-  function updateURL() {
-    // create a "clean" URL for the current page before adding the new query parameters
-    const newUrl = new URL(window.location.pathname, window.location.origin);
-    if (selectedTags.size > 0) {
-      newUrl.searchParams.set('tags', [...selectedTags].join(','));
-    }
-    history.pushState({ tags: [...selectedTags] }, '', newUrl);
-  }
-
-  tags.forEach((tag) => {
-    const tagValue = tag.dataset.tag!;
-    if (selectedTags.has(tagValue)) {
-      tag.classList.add('active');
-    }
-
-    tag.addEventListener('click', (event) => {
-      event.preventDefault();
-
-      tag.classList.toggle('active');
-
-      if (selectedTags.has(tagValue)) {
-        selectedTags.delete(tagValue);
-      } else {
-        selectedTags.add(tagValue);
-      }
-
-      updateNotesVisibility();
-      updateURL();
-    });
-  });
-
-  updateNotesVisibility();
-</script>
+<script>import '@codehia/ui/scripts/tag-filter';</script>
 <style>
+  .notes-section {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
   .notes-section-heading {
-    margin-bottom: .5rem;
+    margin-bottom: 0;
     color: var(--primary);
   }
 </style>

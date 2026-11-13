@@ -9,12 +9,21 @@ article h4 {
 article {
 	line-height: 1.6;
 	min-width: 0;
+	display: flex;
+	flex-direction: column;
+	gap: 2rem;
+}
+
+@media screen and (max-width: 640px) {
+	article {
+		gap: 1rem;
+	}
 }
 
 article hr {
 	height: 1px;
 	border: none;
-	background-color: #353535;
+	background-color: var(--border);
 }
 
 p:has(img) {
@@ -27,6 +36,49 @@ p:has(img) {
 
 p img {
 	max-width: 100%;
+}
+
+.series-list {
+	padding: 0;
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+	margin-bottom: 0;
+	list-style-type: none;
+	counter-reset: series-counter;
+}
+
+.series-li {
+	counter-increment: series-counter;
+	font-size: 0.925rem;
+	padding: 0.25rem 0.5rem;
+	display: flex;
+	align-items: baseline;
+	gap: 0.5rem;
+}
+
+.series-li::before {
+	content: counter(series-counter) ".";
+	color: var(--primary);
+	font-size: 0.8rem;
+	flex-shrink: 0;
+}
+
+.series-li a {
+	color: var(--text-muted);
+}
+
+.series-li a:hover {
+	color: white;
+	text-decoration: none;
+}
+
+.series-current {
+	color: white;
+	background: var(--primary);
+	padding: 0.25rem 0.5rem;
+	box-decoration-break: clone;
+	-webkit-box-decoration-break: clone;
 }
 
 .toc-card {
@@ -44,7 +96,7 @@ p img {
 }
 
 .toc-card ol li a {
-	color: #c7c7c7;
+	color: var(--text-muted);
 	font-size: 0.925rem;
 	padding: 0.25rem 0.5rem;
 	box-decoration-break: clone;
@@ -64,10 +116,6 @@ p img {
 	margin-left: 2rem;
 }
 
-.no-mt {
-	margin-top: 0;
-}
-
 ol li a.active {
 	color: white;
 	background: var(--primary);
@@ -76,11 +124,23 @@ ol li a.active {
 .left {
 	height: 100%;
 	position: relative;
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
 }
 
 .toc-card {
 	position: sticky;
 	top: 2rem;
+}
+
+/* Series + table of contents stick as one unit (see ArticleSidebar.astro). */
+.sidebar-stack {
+	position: sticky;
+	top: 2rem;
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
 }
 
 .article-header {
@@ -153,7 +213,7 @@ ol li a.active {
 }
 
 code:not(.astro-code code) {
-	background-color: #353535;
+	background-color: var(--border);
 	padding: 0.125rem 0.25rem;
 	font-size: 0.925rem;
 }
@@ -169,7 +229,7 @@ code:not(.astro-code code) {
 	margin-bottom: 1.5rem;
 	width: 100%;
 	height: 1px;
-	background-color: #353535;
+	background-color: var(--border);
 	border: none;
 }
 
@@ -195,7 +255,7 @@ table {
 
 table th {
 	padding: 0.5rem 1.5rem 0.5rem 0;
-	border-bottom: 1px solid #353535;
+	border-bottom: 1px solid var(--border);
 }
 
 table tbody {
@@ -203,7 +263,7 @@ table tbody {
 }
 
 table tbody tr {
-	border-bottom: 1px solid #353535;
+	border-bottom: 1px solid var(--border);
 }
 
 table tbody tr td {

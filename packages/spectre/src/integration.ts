@@ -1,3 +1,4 @@
+import { fileURLToPath } from 'node:url';
 import type { AstroIntegration } from 'astro';
 import { z } from 'astro/zod';
 import { viteVirtualModulePluginBuilder } from './utils/virtual-module-plugin-builder';
@@ -66,11 +67,32 @@ export default function integration(options: z.infer<typeof optionsSchema>): Ast
 	return {
 		name: 'spectre-theme',
 		hooks: {
-			'astro:config:setup': ({ updateConfig }) => {
+			'astro:config:setup': ({ config, updateConfig, injectRoute }) => {
+				// Private Obsidian vault, cloned to <repo>/vault at build time. Apps
+				// live at <repo>/apps/<app>, so it is two levels above the app root.
+				const vaultDir = fileURLToPath(new URL('../../vault', config.root));
+
 				updateConfig({
 					vite: {
 						plugins: [globals()],
+						// Depth-proof Vite aliases for vault imports: frontmatter
+						// `image: "@assets/foo.png"` and Obsidian body embeds resolve here
+						// regardless of note nesting depth.
+						// NOTE: Vite aliases apply to module/asset imports only — the
+						// content-loader `base` in content.config.ts uses a filesystem
+						// path, not these aliases.
+						resolve: {
+							alias: {
+								'@vault': vaultDir,
+								'@assets': `${vaultDir}/assets`,
+							},
+						},
 					},
+				});
+
+				injectRoute({
+					pattern: '/pagefind/pagefind.js',
+					entrypoint: fileURLToPath(new URL('./pagefind-stub.ts', import.meta.url)),
 				});
 			},
 		},
